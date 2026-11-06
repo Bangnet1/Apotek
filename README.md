@@ -9,29 +9,39 @@ Starter Tahap 1 untuk apotek fisik satu cabang di Karawang.
 - XLSX untuk impor stok awal
 - Lucide React + Recharts
 
+## Koneksi Supabase
+Aplikasi sudah diarahkan ke project Supabase khusus Mantri Gemoy:
+- Project URL: `https://bispnfwbfmcmpplyzeme.supabase.co`
+- Browser key: Supabase **publishable key** (bukan service-role/secret key)
+- Skema Tahap 1: `supabase/migrations/001_phase1_schema.sql`
+
+Publishable key memang digunakan pada browser dan dilindungi oleh Supabase Auth serta RLS. Jangan pernah memasukkan `service_role` atau secret key ke aplikasi frontend.
+
+Untuk pengembangan lokal, Anda tetap dapat menimpa konfigurasi melalui `.env.local`:
+```env
+VITE_SUPABASE_URL=https://bispnfwbfmcmpplyzeme.supabase.co
+VITE_SUPABASE_PUBLISHABLE_KEY=sb_publishable_...
+```
+
 ## Jalankan lokal
 1. Install Node.js LTS.
-2. Salin `.env.example` menjadi `.env.local`.
-3. Isi URL Supabase dan **publishable key** dari project Supabase Anda.
-4. Jalankan:
-   ```bash
-   npm install
-   npm run dev
-   ```
-5. Buka URL lokal yang ditampilkan Vite.
+2. Jalankan `npm install`.
+3. Jalankan `npm run dev`.
+4. Buka URL lokal yang ditampilkan Vite.
 
-## Setup Supabase
-1. Buat project Supabase baru atau pilih project khusus Mantri Gemoy.
-2. Buka SQL Editor, jalankan `supabase/migrations/001_phase1_schema.sql`.
-3. Buat user melalui Authentication > Users (email/password).
-4. Tambahkan profil untuk user tersebut melalui SQL Editor:
+## Setup akun pertama
+Skema database Tahap 1 sudah diterapkan pada project di atas. Tabel aplikasi masih kosong.
+1. Buat akun pemilik melalui Supabase Dashboard > Authentication > Users (email/password).
+2. Salin UUID user tersebut.
+3. Jalankan SQL berikut di SQL Editor, ganti UUID dan nama:
    ```sql
    insert into public.profiles (id, full_name, role)
    values ('UUID_AUTH_USER', 'Nama Pemilik', 'owner');
    ```
-   Ganti UUID dengan ID dari Authentication > Users.
-5. Buat profil lain dengan role `cashier` atau `pharmacist`.
-6. Jangan aktifkan sign-up publik. Buat akun staf oleh pemilik/admin.
+4. Buat akun staf melalui Dashboard dan tambahkan profil dengan role `cashier` atau `pharmacist`.
+5. Jangan aktifkan sign-up publik. Buat akun staf oleh pemilik/admin.
+
+Dashboard Supabase: https://supabase.com/dashboard/project/bispnfwbfmcmpplyzeme
 
 ## Role
 - `owner`: akses seluruh modul Tahap 1.
@@ -50,21 +60,6 @@ Impor memvalidasi baris dan menampilkan pratinjau. Untuk tahap ini impor mengiri
 - Tahap 1 belum merupakan sistem kasir siap produksi dan belum menjalankan transaksi penjualan.
 - Jangan menggunakan data contoh sebagai data stok nyata.
 - Pengelolaan dan penyerahan obat wajib mengikuti ketentuan apotek dan keputusan apoteker penanggung jawab.
-
-## Struktur
-```text
-src/
-  components/      # layout, sidebar, topbar, UI
-  lib/             # Supabase client
-  pages/           # Dashboard, Produk, Stok, Supplier, Pengaturan
-  types/           # tipe data
-  App.tsx
-  main.tsx
-  styles.css
-supabase/
-  migrations/      # skema database
-templates/         # template Excel
-```
 
 ## Status Tahap 1
 - [x] UI dashboard responsif
