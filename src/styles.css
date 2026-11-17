@@ -424,3 +424,77 @@ td small { color: #94a3a9; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; }
 }
+
+
+/* Honest empty state for modules not yet released; inventory shortcut is functional. */
+.sales-empty {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  min-height: 172px;
+  padding: 22px;
+  border: 1px dashed #dce8e9;
+  border-radius: 12px;
+  background:
+    radial-gradient(circle at 12% 50%, rgba(14,136,125,.055), transparent 9rem),
+    #fbfdfd;
+}
+.sales-empty-icon {
+  flex: 0 0 46px;
+  width: 46px;
+  height: 46px;
+  display: grid;
+  place-items: center;
+  color: #0e887d;
+  background: #e8f5f1;
+  border: 1px solid #d9eee8;
+  border-radius: 14px;
+}
+.sales-empty b {
+  display: block;
+  color: #31515d;
+  font: 700 11px Manrope, sans-serif;
+}
+.sales-empty p {
+  max-width: 360px;
+  margin: 6px 0 0;
+  color: #8799a1;
+  font-size: 9px;
+  line-height: 1.7;
+}
+.module-status {
+  border: 1px solid #e7edf0;
+  border-radius: 7px;
+  background: #f6f8f9;
+  color: #82949c;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: .09em;
+  padding: 6px 8px;
+}
+button.text-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 0 6px 8px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--mg-teal);
+  font: 700 10px 'DM Sans', sans-serif;
+  cursor: pointer;
+  transition: color .18s ease, background .18s ease, gap .18s ease;
+}
+button.text-link:hover {
+  color: var(--mg-teal-dark);
+  background: #f2f8f6;
+  gap: 8px;
+}
+button.text-link:focus-visible {
+  outline: 3px solid rgba(14,136,125,.18);
+  outline-offset: 2px;
+}
+@media (max-width: 760px) {
+  .sales-empty { min-height: 145px; padding: 16px; gap: 12px; }
+  .sales-empty-icon { flex-basis: 40px; width: 40px; height: 40px; }
+}
